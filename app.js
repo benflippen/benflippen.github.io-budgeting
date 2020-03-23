@@ -30,9 +30,9 @@ let budgetController = (() => {
     }
 
 })();
-
-//UI CONTROLLER
+// UI CONTROLLER
 let UIController = (() => {
+
     const DOMstrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
@@ -42,7 +42,7 @@ let UIController = (() => {
 
     return {
         getInput: () => {
-            return{
+            return {
                 type: document.querySelector(DOMstrings.inputType).value,
                 description: document.querySelector(DOMstrings.inputDescription).value,
                 value: document.querySelector(DOMstrings.inputValue).value
@@ -52,32 +52,36 @@ let UIController = (() => {
         getDOMstrings: () => {
             return DOMstrings;
         }
-    };
+    }
+
 })();
 
-//GLOBAL APP CONTROLLER
+// GLOBAL APP CONTROLLER
 let controller = ((budgetCtrl, UICtrl) => {
-    let setupEventListeners = () => {
 
-        const DOM = UICtrl.getDOMstrings();
+    var setupEventListeners = () => {
 
-        document.querySelector(DOM.inputBtn).addEventListner('click', ctrlAddItem)
+        var DOM = UICtrl.getDOMstrings();
 
-        //event.which is for older browsers
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem)
+    
+        //event.which for older browsers 
         document.addEventListener('keypress', (event) => {
             if (event.keyCode === 13 || event.which === 13) {
                 ctrlAddItem();
             }
         });
     }
-    
-    let ctrlAddItem = () => {
+
+
+
+    var ctrlAddItem = () => {
         // 1. Get the field input data
-        let input = UICtrl.getInput();
+        var input = UICtrl.getInput();
         console.log(input);
         // 2. Add the item to the budget controller
 
-        // 3. Add the new item to the UI
+        // 3. Add the new item to the UI 
 
         // 4. Calculate the budget
 
@@ -86,7 +90,7 @@ let controller = ((budgetCtrl, UICtrl) => {
 
     return {
         init: () => {
-            console.log("Sup son");
+            console.log('Sup son.');
             setupEventListeners();
         }
     }
