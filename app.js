@@ -20,10 +20,16 @@ let UIController = (() => {
                 value: document.querySelector(DOMstrings.inputValue).value
             };
         },
-    }
+
+        getDOMstrings: () => {
+            return DOMstrings;
+        }
+    };
 })();
 
 //GLOBAL APP CONTROLLER
-let controller = (() => {
+let controller = ((budgetCtrl, UICtrl) => {
+    let setupEventListeners = () => {
 
+    }
 })();
