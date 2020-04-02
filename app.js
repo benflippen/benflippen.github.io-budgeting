@@ -137,11 +137,20 @@ let controller = ((budgetCtrl, UICtrl) => {
         });
     }
 
+    let updateBudget = () => {
+        // 1. Calculate the budget
+
+        // 2. return the budget
+
+        // 3. Display the budget on the UI
+    }
+
     let ctrlAddItem = () => {
         // 1. Get the field input data
         const input = UICtrl.getInput();
         console.log(input);
 
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
         // 2. Add the item to the budget controller
         const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
         console.log(newItem);
@@ -151,7 +160,12 @@ let controller = ((budgetCtrl, UICtrl) => {
 
         // 4. Clear the fields
         UICtrl.clearFields();
-        // 5. Calculate the budget
+
+        // 5. Calculate and update budget
+        updateBudget();
+        }
+
+
 
         // 6. Display the budget on the UI
     };
