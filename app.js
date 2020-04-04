@@ -17,6 +17,14 @@ let budgetController = (() => {
     let allIncomes = [];
     let totalExpenses = 0;
 
+    let calculateTotal = (type) => {
+        let sum = 0;
+        data.allItems[type].forEach((currentElement) => {
+            sum += currentElement.value;
+        });
+        data.totals[type] = sum;
+    }
+
     let data = {
         allItems: {
             exp: [],
@@ -25,7 +33,9 @@ let budgetController = (() => {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
 
     };
 
@@ -49,6 +59,25 @@ let budgetController = (() => {
             data.allItems[type].push(newItem);
             // Return new element
             return newItem;
+        },
+
+        calculateBudget: () => {
+            // calculate total income and expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+            // calculate the budget: income - expenses
+            data.budget = data.totals.inc - data.totals.exp;
+            // calculate the percentage of income that we spent
+            data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+        },
+
+        getBudget: () => {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            };
         },
 
         testing: () => {
@@ -135,15 +164,16 @@ let controller = ((budgetCtrl, UICtrl) => {
                 ctrlAddItem();
             }
         });
-    }
+    };
 
     let updateBudget = () => {
         // 1. Calculate the budget
-
+        budgetCtrl.calculateBudget();
         // 2. return the budget
-
+        let budget = budgetCtrl.getBudget();
         // 3. Display the budget on the UI
-    }
+        console.log(budget)
+    };
 
     let ctrlAddItem = () => {
         // 1. Get the field input data
